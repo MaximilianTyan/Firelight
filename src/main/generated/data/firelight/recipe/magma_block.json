@@ -1,0 +1,11 @@
+{
+  "type": "firelight:incineration",
+  "ingredient": {
+    "item": "minecraft:stone"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:magma_block"
+  },
+  "stage": "firelight:ember"
+}
