@@ -1,10 +1,11 @@
 package com.github.maximiliantyan;
 
+import com.github.maximiliantyan.generation.ModItemTagsGenerator;
 import com.github.maximiliantyan.generation.ModModelGenerator;
-import com.github.maximiliantyan.generation.loot_tables.ModBlockLootTableGenerator;
 import com.github.maximiliantyan.generation.ModRecipeGenerator;
 import com.github.maximiliantyan.generation.lang.ModLangEnGenerator;
 import com.github.maximiliantyan.generation.lang.ModLangFrGenerator;
+import com.github.maximiliantyan.generation.loot_tables.ModBlockLootTableGenerator;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -20,6 +21,9 @@ public class FirelightDataGenerator implements DataGeneratorEntrypoint {
 
 		// Loot tables
 		pack.addProvider(ModBlockLootTableGenerator::new);
+
+		// Tags
+		pack.addProvider(ModItemTagsGenerator::new);
 
 		// Lang
 		pack.addProvider(ModLangEnGenerator::new);

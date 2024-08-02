@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "holding=false": {
+      "model": "firelight:block/flame_holder_off"
+    },
+    "holding=true": {
+      "model": "firelight:block/flame_holder_on"
+    }
+  }
+}

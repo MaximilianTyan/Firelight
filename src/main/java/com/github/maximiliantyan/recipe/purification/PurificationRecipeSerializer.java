@@ -1,6 +1,7 @@
 package com.github.maximiliantyan.recipe.purification;
 
-import com.github.maximiliantyan.core.FlameStage;
+import com.github.maximiliantyan.core.PyroStage;
+import com.github.maximiliantyan.utils.LookupProvider;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -8,6 +9,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.jetbrains.annotations.NotNull;
 
 public class PurificationRecipeSerializer implements RecipeSerializer<PurificationRecipe> {
 
@@ -22,31 +24,33 @@ public class PurificationRecipeSerializer implements RecipeSerializer<Purificati
         this.codec = RecordCodecBuilder.mapCodec(
                 builder -> builder.group(
                                           Ingredient.CODEC_NONEMPTY.fieldOf("ingredient")
-                                                                   .forGetter(PurificationRecipe::getIngredient),
+                                                                   .forGetter(recipe -> recipe.getIngredients().getFirst()),
                                           ItemStack.STRICT_CODEC.fieldOf("result")
-                                                                .forGetter(PurificationRecipe::getResultItem),
-                                          FlameStage.CODEC.fieldOf("stage")
-                                                          .forGetter(PurificationRecipe::getRequiredFlameStage)
+                                                                .forGetter(recipe -> recipe.getResultItem(LookupProvider.EMPTY)),
+                                          PyroStage.CODEC.fieldOf("flame")
+                                                         .forGetter(PurificationRecipe::getRequiredFlame)
                                   )
                                   .apply(builder, PurificationRecipe::new)
         );
 
         this.streamCodec = StreamCodec.composite(
                 Ingredient.CONTENTS_STREAM_CODEC,
-                PurificationRecipe::getIngredient,
+                recipe -> recipe.getIngredients().getFirst(),
                 ItemStack.STREAM_CODEC,
-                PurificationRecipe::getResultItem,
-                FlameStage.STREAM_CODEC,
-                PurificationRecipe::getRequiredFlameStage,
+                recipe -> recipe.getResultItem(LookupProvider.EMPTY),
+                PyroStage.STREAM_CODEC,
+                PurificationRecipe::getRequiredFlame,
                 PurificationRecipe::new
         );
     }
 
+    @NotNull
     @Override
     public MapCodec<PurificationRecipe> codec() {
         return this.codec;
     }
 
+    @NotNull
     @Override
     public StreamCodec<RegistryFriendlyByteBuf, PurificationRecipe> streamCodec() {
         return this.streamCodec;

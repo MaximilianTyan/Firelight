@@ -5,6 +5,7 @@ import com.github.maximiliantyan.recipe.incineration.IncinerationRecipe;
 import com.github.maximiliantyan.recipe.incineration.IncinerationRecipeSerializer;
 import com.github.maximiliantyan.recipe.purification.PurificationRecipe;
 import com.github.maximiliantyan.recipe.purification.PurificationRecipeSerializer;
+import com.github.maximiliantyan.utils.IdUtils;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -17,7 +18,7 @@ public class ModRecipeSerializer {
     public static void registerSerializer(String id, RecipeSerializer<?> type) {
         Registry.register(
                 BuiltInRegistries.RECIPE_SERIALIZER,
-                Firelight.newId( id),
+                IdUtils.newId(id),
                 type
         );
     }

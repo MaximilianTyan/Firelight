@@ -1,6 +1,6 @@
 package com.github.maximiliantyan.recipe.purification;
 
-import com.github.maximiliantyan.core.FlameStage;
+import com.github.maximiliantyan.core.PyroStage;
 import com.github.maximiliantyan.recipe.FlameRecipe;
 import com.github.maximiliantyan.registry.ModRecipeSerializer;
 import com.github.maximiliantyan.registry.ModRecipeTypes;
@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class PurificationRecipe implements FlameRecipe {
 
@@ -20,43 +21,41 @@ public class PurificationRecipe implements FlameRecipe {
 
     protected final Ingredient ingredient;
     protected final ItemStack result;
-    protected final FlameStage stage;
+    protected final PyroStage stage;
 
-    public PurificationRecipe(Ingredient ingredient, ItemStack itemStack, FlameStage stage) {
+    public PurificationRecipe(Ingredient ingredient, ItemStack itemStack, PyroStage stage) {
         this.ingredient = ingredient;
         this.result = itemStack;
         this.stage = stage;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<PurificationRecipe> getType() {
         return TYPE;
     }
 
+    @NotNull
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<PurificationRecipe> getSerializer() {
         return SERIALIZER;
     }
 
-
+    @NotNull
     @Override
     public ItemStack getResultItem(HolderLookup.Provider provider) {
         return this.result;
     }
 
-    public ItemStack getResultItem() {
-        return this.result;
+    public static String getTranslationKey() {
+        return "recipe.purification";
     }
 
+    @NotNull
     @Override
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonNullList = NonNullList.create();
-        nonNullList.add(getIngredient());
+        nonNullList.add(this.ingredient);
         return nonNullList;
-    }
-
-    public Ingredient getIngredient() {
-        return this.ingredient;
     }
 
     @Override
@@ -64,6 +63,7 @@ public class PurificationRecipe implements FlameRecipe {
         return this.ingredient.test(recipeInput.getItem(0));
     }
 
+    @NotNull
     @Override
     public ItemStack assemble(RecipeInput recipeInput, HolderLookup.Provider provider) {
         return this.result.copy();
@@ -71,12 +71,17 @@ public class PurificationRecipe implements FlameRecipe {
 
     @Override
     public boolean canCraftInDimensions(int i, int j) {
-        return true;
+        return false;
     }
 
     @Override
-    public FlameStage getRequiredFlameStage() {
+    public PyroStage getRequiredFlame() {
         return stage;
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
     }
 }
 

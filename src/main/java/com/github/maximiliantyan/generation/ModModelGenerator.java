@@ -21,7 +21,12 @@ public class ModModelGenerator extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerators generators) {
         generators.generateFlatItem(ModItems.SPARK, ModelTemplates.FLAT_ITEM);
-        generators.generateFlatItem(ModItems.EMBER, ModelTemplates.FLAT_ITEM);
-        generators.generateFlatItem(ModItems.KINDLE, ModelTemplates.FLAT_ITEM);
+        generators.generateFlatItem(ModItems.FLAME, ModelTemplates.FLAT_ITEM);
+        generators.generateFlatItem(ModItems.FIRE, ModelTemplates.FLAT_ITEM);
+        generators.generateFlatItem(ModItems.BRASERO, ModelTemplates.FLAT_ITEM);
+        generators.generateFlatItem(ModItems.BONFIRE, ModelTemplates.FLAT_ITEM);
+        generators.generateFlatItem(ModItems.INFERNO, ModelTemplates.FLAT_ITEM);
+
+        generators.generateFlatItem(ModItems.ASH, ModelTemplates.FLAT_ITEM);
     }
 }

@@ -1,7 +1,6 @@
 package com.github.maximiliantyan.recipe.incineration;
 
-import com.github.maximiliantyan.core.FlameStage;
-import com.github.maximiliantyan.core.FlameStages;
+import com.github.maximiliantyan.core.PyroStage;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -11,27 +10,30 @@ import net.minecraft.world.level.ItemLike;
 
 /** Stolen from Applied Energestics Code*/
 public class IncinerationRecipeBuilder {
-    public static void incinerate(RecipeOutput consumer, ResourceLocation id, ItemLike input, ItemLike output, FlameStage stage) {
+    public static final String FOLDER = "incineration";
+
+    public static void incinerate(RecipeOutput consumer, ResourceLocation id, ItemLike input, ItemLike output, PyroStage requiredStage) {
         consumer.accept(
                 id,
-                new IncinerationRecipe(Ingredient.of(input), output.asItem().getDefaultInstance(), stage),
+                new IncinerationRecipe(Ingredient.of(input), output.asItem().getDefaultInstance(), requiredStage),
                 null
         );
     }
 
-    public static void incinerate(RecipeOutput consumer, ResourceLocation id, Ingredient input, ItemLike output, FlameStage stage) {
+    public static void incinerate(RecipeOutput consumer, ResourceLocation id, Ingredient input, ItemLike output, PyroStage requiredStage) {
         consumer.accept(
                 id,
-                new IncinerationRecipe(input, output.asItem().getDefaultInstance(), stage),
+                new IncinerationRecipe(input, output.asItem().getDefaultInstance(), requiredStage),
                 null
         );
     }
 
-    public static void incinerate(RecipeOutput consumer, ResourceLocation id, TagKey<Item> input, ItemLike output, FlameStage stage) {
+    public static void incinerate(RecipeOutput consumer, ResourceLocation id, TagKey<Item> input, ItemLike output, PyroStage requiredStage) {
         consumer.accept(
                 id,
-                new IncinerationRecipe(Ingredient.of(input), output.asItem().getDefaultInstance(), stage),
+                new IncinerationRecipe(Ingredient.of(input), output.asItem().getDefaultInstance(), requiredStage),
                 null
         );
     }
+
 }
